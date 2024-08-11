@@ -7,7 +7,7 @@ class TicTakToe :
         self.window = tk.Tk()
         self.window.title('Tic Tak Toe')
         self.board = [[' ' for _ in range(self.board_size)] for _ in range(self.board_size)]
-        self.current_player = 'x'
+        self.current_player = 'X'
         self.create_buttons()
     
     def create_buttons(self):
@@ -26,7 +26,8 @@ class TicTakToe :
             if self.check_win(self.current_player):
                 pass
             elif self.is_full():
-                pass
+                messagebox.showinfo("tic tac toe","It's a tie")
+                self.reset_game()
             else:
                 self.current_player = 'O' if self.current_player == 'X' else 'X'
 
@@ -37,8 +38,17 @@ class TicTakToe :
         pass
 
     def is_full(self):
-        pass
+        return all(all(cell !=' ' for cell in row) for row in self.board)
     
+    def reset_game(self):
+        for row in range(self.board_size):
+            for col in range(self.board_size):
+                self.board[row][col] = ' '
+                self.buttons[row][col].config(text=' ')
+        self.current_player = 'X'
+        
+
+
 
 
     def run(self):
