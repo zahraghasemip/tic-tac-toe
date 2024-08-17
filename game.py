@@ -24,7 +24,8 @@ class TicTakToe :
             self.buttons[row][col].config(text=self.current_player)
 
             if self.check_win(self.current_player):
-                pass
+                messagebox.showinfo("tic tac toe" , f"player {self.current_player} winned!")
+                self.reset_game()
             elif self.is_full():
                 messagebox.showinfo("tic tac toe","It's a tie")
                 self.reset_game()
@@ -35,7 +36,11 @@ class TicTakToe :
             messagebox.showerror("Invalid move", "Cell is already taken. Try again!")
 
     def check_win(self, player):
-        pass
+        for i in range(self.board_size):
+            if all(self.board[i][j] == player for j in range(self.board_size)) or all(self.board[j][i] == player for j in range(self.board_size)):
+                    return True
+        return all(self.board[i][i] == player for i in range(self.board_size)) or all(self.board[i][self.board_size -1 -i] == player for i in range(self.board_size))
+        
 
     def is_full(self):
         return all(all(cell !=' ' for cell in row) for row in self.board)
